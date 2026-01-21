@@ -44,7 +44,39 @@ Set your Cloudflare API token as an environment variable:
 export CLOUDFLARE_API_TOKEN="your-api-token"
 ```
 
-You can create an API token in the [Cloudflare dashboard](https://dash.cloudflare.com/profile/api-tokens) with the appropriate permissions for the servers you want to use.
+#### Create an API Token with Full Access
+
+To use all MCP servers, create an API token with these permissions:
+
+**[Create API Token](https://dash.cloudflare.com/profile/api-tokens)** (click to open Cloudflare dashboard)
+
+| Permission | Access | Required For |
+|------------|--------|--------------|
+| **Account > Workers Scripts** | Edit | Bindings, Builds, Containers |
+| **Account > Workers KV Storage** | Edit | Bindings (KV) |
+| **Account > Workers R2 Storage** | Edit | Bindings (R2) |
+| **Account > D1** | Edit | Bindings (D1) |
+| **Account > AI Gateway** | Read | AI Gateway |
+| **Account > Workers Tail** | Read | Observability |
+| **Account > Account Analytics** | Read | Observability, GraphQL |
+| **Account > Logs** | Edit | Logpush |
+| **Account > Account Audit Logs** | Read | Audit Logs |
+| **Account > Access: Organizations, Identity Providers, and Groups** | Read | DEX, CASB |
+| **Zone > DNS** | Read | DNS Analytics |
+| **Zone > Analytics** | Read | GraphQL, DNS Analytics |
+| **User > User Details** | Read | All servers (account selection) |
+
+> **Tip:** Start with the "Edit Cloudflare Workers" template and add additional permissions as needed. For read-only access, change "Edit" to "Read" where applicable.
+
+#### Quick Setup (Minimal Permissions)
+
+For basic Workers development only:
+
+1. Go to [API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+2. Click **Create Token**
+3. Use the **Edit Cloudflare Workers** template
+4. Add your account/zone resources
+5. Click **Continue to summary** → **Create Token**
 
 ### Included MCP Servers
 
