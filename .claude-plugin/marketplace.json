@@ -6,13 +6,12 @@
   },
   "metadata": {
     "description": "Claude Code plugin exposing Cloudflare's official MCP servers for Workers, KV, R2, D1, Radar, and more.",
-    "version": "1.0.0",
-    "pluginRoot": "."
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "cloudflare",
-      "source": ".",
+      "source": "./",
       "description": "Cloudflare MCP servers for managing Workers, storage (KV, R2, D1), observability, security, and traffic analysis. Includes 15 MCP servers and skills for common workflows.",
       "version": "1.0.0",
       "author": {
@@ -42,7 +41,7 @@
         "security",
         "analytics"
       ],
-      "mcpServers": ".mcp.json"
+      "mcpServers": "./.mcp.json"
     }
   ]
 }
