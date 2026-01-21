@@ -1,0 +1,65 @@
+{
+	"name": "@cloudflare/mcp-server-cloudflare-plugin",
+	"version": "0.1.0",
+	"description": "Cloudflare MCP tools as a plugin for any MCP server",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"bin": {
+		"cloudflare-mcp-plugin": "./dist/cli.js"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./cli": {
+			"import": "./dist/cli.js"
+		},
+		"./tools/*": {
+			"types": "./dist/tools/*.d.ts",
+			"import": "./dist/tools/*.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc",
+		"check:lint": "run-eslint-workers",
+		"check:types": "run-tsc",
+		"test": "vitest run",
+		"prepublishOnly": "npm run build"
+	},
+	"keywords": [
+		"mcp",
+		"cloudflare",
+		"plugin",
+		"model-context-protocol"
+	],
+	"author": "Cloudflare, Inc. (https://cloudflare.com)",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cloudflare/mcp-server-cloudflare.git",
+		"directory": "packages/mcp-plugin"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "1.20.2",
+		"cloudflare": "4.2.0",
+		"zod": "3.24.2"
+	},
+	"devDependencies": {
+		"@repo/eslint-config": "workspace:*",
+		"@repo/tools": "workspace:*",
+		"@repo/typescript-config": "workspace:*",
+		"@types/node": "22.14.1",
+		"typescript": "5.5.4",
+		"vitest": "3.0.9"
+	},
+	"peerDependencies": {
+		"@modelcontextprotocol/sdk": ">=1.0.0"
+	}
+}
