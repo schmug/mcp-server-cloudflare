@@ -10,6 +10,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
+		"validate:plugin": "node scripts/validate-plugin.mjs",
 		"changeset:new": "run-changeset-new",
 		"check:deps": "syncpack lint",
 		"check:format": "prettier . --check --cache --ignore-unknown",

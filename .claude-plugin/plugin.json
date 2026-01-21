@@ -3,20 +3,9 @@
   "description": "Cloudflare MCP servers for managing Workers, KV, R2, D1, and more. Includes tools for observability, security, and traffic analysis.",
   "version": "1.0.0",
   "author": {
-    "name": "Cloudflare, Inc.",
-    "url": "https://cloudflare.com"
+    "name": "Cloudflare, Inc."
   },
+  "homepage": "https://developers.cloudflare.com/",
   "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
-  "license": "Apache-2.0",
-  "keywords": [
-    "cloudflare",
-    "workers",
-    "kv",
-    "r2",
-    "d1",
-    "mcp",
-    "observability",
-    "radar",
-    "security"
-  ]
+  "license": "Apache-2.0"
 }

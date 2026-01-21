@@ -2,13 +2,11 @@
   "mcpServers": {
     "cloudflare-docs": {
       "type": "http",
-      "url": "https://docs.mcp.cloudflare.com/mcp",
-      "description": "Search and query Cloudflare documentation with AI"
+      "url": "https://docs.mcp.cloudflare.com/mcp"
     },
     "cloudflare-bindings": {
       "type": "http",
       "url": "https://bindings.mcp.cloudflare.com/mcp",
-      "description": "Manage Workers bindings: KV, R2, D1, Durable Objects, Queues, Hyperdrive, and more",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -16,7 +14,6 @@
     "cloudflare-builds": {
       "type": "http",
       "url": "https://builds.mcp.cloudflare.com/mcp",
-      "description": "Manage Workers builds and deployments",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -24,7 +21,6 @@
     "cloudflare-observability": {
       "type": "http",
       "url": "https://observability.mcp.cloudflare.com/mcp",
-      "description": "Query Workers logs, analytics, and debugging information",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -32,7 +28,6 @@
     "cloudflare-radar": {
       "type": "http",
       "url": "https://radar.mcp.cloudflare.com/mcp",
-      "description": "Internet traffic insights, URL scanning, and security analysis",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -40,7 +35,6 @@
     "cloudflare-containers": {
       "type": "http",
       "url": "https://containers.mcp.cloudflare.com/mcp",
-      "description": "Sandbox container development environment",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -48,7 +42,6 @@
     "cloudflare-browser": {
       "type": "http",
       "url": "https://browser.mcp.cloudflare.com/mcp",
-      "description": "Web page fetching, screenshots, and browser rendering",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -56,7 +49,6 @@
     "cloudflare-logs": {
       "type": "http",
       "url": "https://logs.mcp.cloudflare.com/mcp",
-      "description": "Logpush job management and health monitoring",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -64,7 +56,6 @@
     "cloudflare-ai-gateway": {
       "type": "http",
       "url": "https://ai-gateway.mcp.cloudflare.com/mcp",
-      "description": "AI Gateway log search and prompt/response analysis",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -72,7 +63,6 @@
     "cloudflare-autorag": {
       "type": "http",
       "url": "https://autorag.mcp.cloudflare.com/mcp",
-      "description": "AutoRAG document listing and AI-powered search",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -80,7 +70,6 @@
     "cloudflare-auditlogs": {
       "type": "http",
       "url": "https://auditlogs.mcp.cloudflare.com/mcp",
-      "description": "Query and analyze Cloudflare audit logs",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -88,7 +77,6 @@
     "cloudflare-dns-analytics": {
       "type": "http",
       "url": "https://dns-analytics.mcp.cloudflare.com/mcp",
-      "description": "DNS query analytics and performance optimization",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -96,7 +84,6 @@
     "cloudflare-dex": {
       "type": "http",
       "url": "https://dex.mcp.cloudflare.com/mcp",
-      "description": "Digital Experience Monitoring and remote commands",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -104,7 +91,6 @@
     "cloudflare-casb": {
       "type": "http",
       "url": "https://casb.mcp.cloudflare.com/mcp",
-      "description": "Cloud Access Security Broker - SaaS security misconfigurations",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
@@ -112,7 +98,6 @@
     "cloudflare-graphql": {
       "type": "http",
       "url": "https://graphql.mcp.cloudflare.com/mcp",
-      "description": "GraphQL API analytics and queries",
       "headers": {
         "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}"
       }
