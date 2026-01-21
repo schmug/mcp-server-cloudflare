@@ -1,11 +1,11 @@
 {
   "name": "cloudflare",
-  "description": "Cloudflare MCP servers for managing Workers, KV, R2, D1, and more. Includes tools for observability, security, and traffic analysis.",
+  "description": "Claude Code plugin for Cloudflare MCP servers - Workers, KV, R2, D1, observability, security, and more.",
   "version": "1.0.0",
   "author": {
-    "name": "Cloudflare, Inc."
+    "name": "Cloudflare Community"
   },
-  "homepage": "https://developers.cloudflare.com/",
-  "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
+  "homepage": "https://github.com/schmug/cloudflare-claude-plugin",
+  "repository": "https://github.com/schmug/cloudflare-claude-plugin",
   "license": "Apache-2.0"
 }

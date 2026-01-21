@@ -15,7 +15,7 @@
       "description": "All 15 Cloudflare MCP servers bundled together (Workers, Storage, Security, AI, Observability)",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
-      "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
+      "repository": "https://github.com/schmug/cloudflare-claude-plugin",
       "license": "Apache-2.0",
       "keywords": ["cloudflare", "workers", "kv", "r2", "d1", "mcp", "all"],
       "category": "cloud-infrastructure",
