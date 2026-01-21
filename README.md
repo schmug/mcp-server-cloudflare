@@ -14,11 +14,41 @@ Install the Cloudflare plugin in Claude Code:
 # Add the marketplace
 /plugin marketplace add schmug/mcp-server-cloudflare
 
-# Install the plugin
+# Install ALL servers (full bundle)
 /plugin install cloudflare@cloudflare-mcp
+
+# Or install only what you need (see Available Plugins below)
+/plugin install cloudflare-workers@cloudflare-mcp
 ```
 
-Or add directly to your project's `.claude/settings.json`:
+### Available Plugins
+
+| Plugin | Servers | Auth Required |
+|--------|---------|---------------|
+| `cloudflare` | All 15 servers | Yes |
+| `cloudflare-docs` | Documentation search | **No** |
+| `cloudflare-workers` | Bindings, Builds, Containers | Yes |
+| `cloudflare-observability` | Observability, Logs, GraphQL | Yes |
+| `cloudflare-security` | Radar, CASB, Audit Logs | Yes |
+| `cloudflare-ai` | AI Gateway, AutoRAG, Browser | Yes |
+| `cloudflare-network` | DNS Analytics, DEX | Yes |
+
+**Examples:**
+```bash
+# Just documentation (no API token needed!)
+/plugin install cloudflare-docs@cloudflare-mcp
+
+# Workers development
+/plugin install cloudflare-workers@cloudflare-mcp
+
+# Multiple plugins
+/plugin install cloudflare-workers@cloudflare-mcp
+/plugin install cloudflare-observability@cloudflare-mcp
+```
+
+### Manual Configuration
+
+Add directly to your project's `.claude/settings.json`:
 
 ```json
 {
@@ -31,7 +61,8 @@ Or add directly to your project's `.claude/settings.json`:
     }
   },
   "enabledPlugins": {
-    "cloudflare@cloudflare-mcp": true
+    "cloudflare-workers@cloudflare-mcp": true,
+    "cloudflare-docs@cloudflare-mcp": true
   }
 }
 ```

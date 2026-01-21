@@ -209,7 +209,18 @@ if (!existsSync(marketplaceJsonPath)) {
               success(`${prefix}: mcpServers = "${plugin.mcpServers}"`)
             }
           } else if (typeof plugin.mcpServers === 'object') {
-            success(`${prefix}: mcpServers is inline object`)
+            const serverCount = Object.keys(plugin.mcpServers).length
+            success(`${prefix}: mcpServers has ${serverCount} inline server(s)`)
+
+            // Validate inline mcpServers
+            for (const [serverName, serverConfig] of Object.entries(plugin.mcpServers)) {
+              const sc = serverConfig
+              if (sc.type === 'http' || sc.type === 'sse') {
+                if (!sc.url) {
+                  error(`${prefix} mcpServers.${serverName}: "url" is required for ${sc.type} type`)
+                }
+              }
+            }
           }
         }
       }
