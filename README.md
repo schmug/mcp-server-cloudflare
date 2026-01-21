@@ -2,6 +2,90 @@
 
 Model Context Protocol (MCP) is a [new, standardized protocol](https://modelcontextprotocol.io/introduction) for managing context between large language models (LLMs) and external systems. In this repository, you can find several MCP servers allowing you to connect to Cloudflare's service from an MCP client (e.g. Cursor, Claude) and use natural language to accomplish tasks through your Cloudflare account.
 
+## Claude Code Plugin
+
+> **Note:** This repository is a community fork that packages the [official Cloudflare MCP servers](https://github.com/cloudflare/mcp-server-cloudflare) as a [Claude Code plugin](https://code.claude.com/docs/en/plugins). The upstream repository contains the source code for all MCP servers; this fork adds the plugin configuration to make them easily installable in Claude Code.
+
+### Quick Start
+
+Install the Cloudflare plugin in Claude Code:
+
+```bash
+# Add the marketplace
+/plugin marketplace add schmug/mcp-server-cloudflare
+
+# Install the plugin
+/plugin install cloudflare@cloudflare-mcp
+```
+
+Or add directly to your project's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "cloudflare-mcp": {
+      "source": {
+        "source": "github",
+        "repo": "schmug/mcp-server-cloudflare"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "cloudflare@cloudflare-mcp": true
+  }
+}
+```
+
+### Authentication
+
+Set your Cloudflare API token as an environment variable:
+
+```bash
+export CLOUDFLARE_API_TOKEN="your-api-token"
+```
+
+You can create an API token in the [Cloudflare dashboard](https://dash.cloudflare.com/profile/api-tokens) with the appropriate permissions for the servers you want to use.
+
+### Included MCP Servers
+
+The plugin configures all 15 Cloudflare MCP servers:
+
+| Server | Description |
+|--------|-------------|
+| `cloudflare-docs` | Search Cloudflare documentation (no auth required) |
+| `cloudflare-bindings` | Manage KV, R2, D1, Durable Objects, Queues, Hyperdrive |
+| `cloudflare-builds` | Workers build and deployment management |
+| `cloudflare-observability` | Query logs, analytics, and debugging info |
+| `cloudflare-radar` | Internet traffic insights and URL scanning |
+| `cloudflare-containers` | Sandbox development environments |
+| `cloudflare-browser` | Web page fetching and screenshots |
+| `cloudflare-logs` | Logpush job management |
+| `cloudflare-ai-gateway` | AI Gateway log search and analytics |
+| `cloudflare-autorag` | AutoRAG document search |
+| `cloudflare-auditlogs` | Audit log queries and reports |
+| `cloudflare-dns-analytics` | DNS performance optimization |
+| `cloudflare-dex` | Digital Experience Monitoring |
+| `cloudflare-casb` | SaaS security misconfigurations |
+| `cloudflare-graphql` | GraphQL API analytics |
+
+### Skills
+
+The plugin includes skills for common workflows:
+
+- `/cloudflare:setup` - Configure Cloudflare authentication
+- `/cloudflare:deploy-worker` - Deploy a Worker to production
+- `/cloudflare:debug-worker` - Troubleshoot Worker issues
+- `/cloudflare:analyze-traffic` - Analyze traffic with Radar
+
+### Upstream Repository
+
+This plugin wraps the official Cloudflare MCP servers. For:
+- **Source code and contributions**: See [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
+- **Bug reports for MCP servers**: File issues on the upstream repository
+- **Plugin-specific issues**: File issues on this fork
+
+---
+
 These MCP servers allow your [MCP Client](https://modelcontextprotocol.io/clients) to read configurations from your account, process information, make suggestions based on data, and even make those suggested changes for you. All of these actions can happen across Cloudflare's many services including application development, security and performance.
 
 They support both the `streamble-http` transport via `/mcp` and the `sse` transport (deprecated) via `/sse`.
