@@ -6,10 +6,7 @@
     "name": "Cloudflare, Inc.",
     "url": "https://cloudflare.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cloudflare/mcp-server-cloudflare"
-  },
+  "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
   "license": "Apache-2.0",
   "keywords": [
     "cloudflare",
