@@ -1,0 +1,48 @@
+{
+  "name": "cloudflare-mcp",
+  "owner": {
+    "name": "Cloudflare Community",
+    "email": "community@cloudflare.com"
+  },
+  "metadata": {
+    "description": "Claude Code plugin exposing Cloudflare's official MCP servers for Workers, KV, R2, D1, Radar, and more.",
+    "version": "1.0.0",
+    "pluginRoot": "."
+  },
+  "plugins": [
+    {
+      "name": "cloudflare",
+      "source": ".",
+      "description": "Cloudflare MCP servers for managing Workers, storage (KV, R2, D1), observability, security, and traffic analysis. Includes 15 MCP servers and skills for common workflows.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Cloudflare, Inc."
+      },
+      "homepage": "https://developers.cloudflare.com/",
+      "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
+      "license": "Apache-2.0",
+      "keywords": [
+        "cloudflare",
+        "workers",
+        "kv",
+        "r2",
+        "d1",
+        "mcp",
+        "observability",
+        "radar",
+        "security",
+        "serverless"
+      ],
+      "category": "cloud-infrastructure",
+      "tags": [
+        "cloud",
+        "serverless",
+        "edge-computing",
+        "storage",
+        "security",
+        "analytics"
+      ],
+      "mcpServers": ".mcp.json"
+    }
+  ]
+}
