@@ -30,6 +30,8 @@ jobs:
         run: pnpm check:format
       - name: Run tests
         run: pnpm test
+      - name: Validate plugin schema
+        run: pnpm validate:plugin
 
   build-workers:
     name: Build Workers
