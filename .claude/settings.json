@@ -1,0 +1,4 @@
+{
+  "$schema": "https://claude.ai/schemas/settings.json",
+  "mcpToolSearch": "auto:5"
+}

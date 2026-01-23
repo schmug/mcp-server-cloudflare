@@ -29,6 +29,8 @@ jobs:
         run: pnpm check:format
       - name: Run tests
         run: pnpm test
+      - name: Validate plugin schema
+        run: pnpm validate:plugin
 
       - name: Deploy Workers (staging)
         run: pnpm turbo deploy -- -e staging

@@ -5,17 +5,17 @@
     "email": "community@cloudflare.com"
   },
   "metadata": {
-    "description": "Claude Code plugins for Cloudflare MCP servers. Install all servers or pick individual components.",
+    "description": "Claude Code plugins for Cloudflare. Choose by workflow: dev, security, ai, or analytics.",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "cloudflare",
       "source": "./",
-      "description": "All 15 Cloudflare MCP servers bundled together (Workers, Storage, Security, AI, Observability)",
+      "description": "All 15 Cloudflare MCP servers (for power users who need everything)",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
-      "repository": "https://github.com/cloudflare/mcp-server-cloudflare",
+      "repository": "https://github.com/schmug/cloudflare-claude-plugin",
       "license": "Apache-2.0",
       "keywords": ["cloudflare", "workers", "kv", "r2", "d1", "mcp", "all"],
       "category": "cloud-infrastructure",
@@ -24,11 +24,11 @@
     {
       "name": "cloudflare-docs",
       "source": "./",
-      "description": "Search Cloudflare documentation with AI (no authentication required)",
+      "description": "Search Cloudflare documentation (no API token required)",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
       "license": "Apache-2.0",
-      "keywords": ["cloudflare", "docs", "documentation", "search"],
+      "keywords": ["cloudflare", "docs", "documentation"],
       "category": "documentation",
       "mcpServers": {
         "cloudflare-docs": {
@@ -39,14 +39,14 @@
       "strict": false
     },
     {
-      "name": "cloudflare-workers",
+      "name": "cloudflare-dev",
       "source": "./",
-      "description": "Workers development: KV, R2, D1, Durable Objects, Queues, Hyperdrive, builds, and containers",
+      "description": "Workers/Pages development: storage (KV, R2, D1), deployments, logs, and sandbox containers",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
       "license": "Apache-2.0",
-      "keywords": ["cloudflare", "workers", "kv", "r2", "d1", "serverless"],
-      "category": "cloud-infrastructure",
+      "keywords": ["cloudflare", "workers", "pages", "kv", "r2", "d1", "deploy", "logs"],
+      "category": "development",
       "mcpServers": {
         "cloudflare-bindings": {
           "type": "http",
@@ -58,6 +58,11 @@
           "url": "https://builds.mcp.cloudflare.com/mcp",
           "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
         },
+        "cloudflare-observability": {
+          "type": "http",
+          "url": "https://observability.mcp.cloudflare.com/mcp",
+          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
+        },
         "cloudflare-containers": {
           "type": "http",
           "url": "https://containers.mcp.cloudflare.com/mcp",
@@ -67,41 +72,13 @@
       "strict": false
     },
     {
-      "name": "cloudflare-observability",
-      "source": "./",
-      "description": "Monitoring and debugging: logs, analytics, Logpush, and GraphQL API",
-      "version": "1.0.0",
-      "author": { "name": "Cloudflare, Inc." },
-      "license": "Apache-2.0",
-      "keywords": ["cloudflare", "observability", "logs", "analytics", "monitoring"],
-      "category": "observability",
-      "mcpServers": {
-        "cloudflare-observability": {
-          "type": "http",
-          "url": "https://observability.mcp.cloudflare.com/mcp",
-          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
-        },
-        "cloudflare-logs": {
-          "type": "http",
-          "url": "https://logs.mcp.cloudflare.com/mcp",
-          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
-        },
-        "cloudflare-graphql": {
-          "type": "http",
-          "url": "https://graphql.mcp.cloudflare.com/mcp",
-          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
-        }
-      },
-      "strict": false
-    },
-    {
       "name": "cloudflare-security",
       "source": "./",
-      "description": "Security tools: Radar (traffic/URL scanning), CASB, and audit logs",
+      "description": "Security operations: URL scanning, threat intel (Radar), SaaS security (CASB), and audit logs",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
       "license": "Apache-2.0",
-      "keywords": ["cloudflare", "security", "radar", "casb", "audit"],
+      "keywords": ["cloudflare", "security", "radar", "casb", "audit", "compliance"],
       "category": "security",
       "mcpServers": {
         "cloudflare-radar": {
@@ -125,11 +102,11 @@
     {
       "name": "cloudflare-ai",
       "source": "./",
-      "description": "AI services: AI Gateway, AutoRAG, and Browser Rendering",
+      "description": "AI development: AI Gateway logs, AutoRAG document search, and Browser Rendering",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
       "license": "Apache-2.0",
-      "keywords": ["cloudflare", "ai", "ai-gateway", "autorag", "browser"],
+      "keywords": ["cloudflare", "ai", "ai-gateway", "autorag", "browser", "llm"],
       "category": "ai",
       "mcpServers": {
         "cloudflare-ai-gateway": {
@@ -151,15 +128,20 @@
       "strict": false
     },
     {
-      "name": "cloudflare-network",
+      "name": "cloudflare-analytics",
       "source": "./",
-      "description": "Network tools: DNS Analytics and Digital Experience Monitoring (DEX)",
+      "description": "Deep analytics: GraphQL API, DNS analytics, DEX monitoring, and Logpush",
       "version": "1.0.0",
       "author": { "name": "Cloudflare, Inc." },
       "license": "Apache-2.0",
-      "keywords": ["cloudflare", "dns", "dex", "network", "analytics"],
-      "category": "network",
+      "keywords": ["cloudflare", "analytics", "graphql", "dns", "dex", "logs"],
+      "category": "analytics",
       "mcpServers": {
+        "cloudflare-graphql": {
+          "type": "http",
+          "url": "https://graphql.mcp.cloudflare.com/mcp",
+          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
+        },
         "cloudflare-dns-analytics": {
           "type": "http",
           "url": "https://dns-analytics.mcp.cloudflare.com/mcp",
@@ -168,6 +150,11 @@
         "cloudflare-dex": {
           "type": "http",
           "url": "https://dex.mcp.cloudflare.com/mcp",
+          "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
+        },
+        "cloudflare-logs": {
+          "type": "http",
+          "url": "https://logs.mcp.cloudflare.com/mcp",
           "headers": { "Authorization": "Bearer ${CLOUDFLARE_API_TOKEN}" }
         }
       },

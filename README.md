@@ -1,54 +1,105 @@
-# Cloudflare MCP Server
+# Cloudflare Claude Plugin
 
-Model Context Protocol (MCP) is a [new, standardized protocol](https://modelcontextprotocol.io/introduction) for managing context between large language models (LLMs) and external systems. In this repository, you can find several MCP servers allowing you to connect to Cloudflare's service from an MCP client (e.g. Cursor, Claude) and use natural language to accomplish tasks through your Cloudflare account.
+A [Claude Code plugin](https://code.claude.com/docs/en/plugins) for Cloudflare's MCP servers. Choose plugins by workflow - only install what you need.
 
-## Claude Code Plugin
+> This is a community plugin wrapping the [official Cloudflare MCP servers](https://github.com/cloudflare/mcp-server-cloudflare).
 
-> **Note:** This repository is a community fork that packages the [official Cloudflare MCP servers](https://github.com/cloudflare/mcp-server-cloudflare) as a [Claude Code plugin](https://code.claude.com/docs/en/plugins). The upstream repository contains the source code for all MCP servers; this fork adds the plugin configuration to make them easily installable in Claude Code.
-
-### Quick Start
-
-Install the Cloudflare plugin in Claude Code:
+## Installation
 
 ```bash
 # Add the marketplace
-/plugin marketplace add schmug/mcp-server-cloudflare
+/plugin marketplace add schmug/cloudflare-claude-plugin
 
-# Install ALL servers (full bundle)
+# Install by workflow (recommended)
+/plugin install cloudflare-dev@cloudflare-mcp      # Workers/Pages development
+/plugin install cloudflare-docs@cloudflare-mcp     # Documentation (no auth needed)
+
+# Or install everything
 /plugin install cloudflare@cloudflare-mcp
-
-# Or install only what you need (see Available Plugins below)
-/plugin install cloudflare-workers@cloudflare-mcp
 ```
 
-### Available Plugins
+## Choose Your Workflow
 
-| Plugin | Servers | Auth Required |
-|--------|---------|---------------|
-| `cloudflare` | All 15 servers | Yes |
-| `cloudflare-docs` | Documentation search | **No** |
-| `cloudflare-workers` | Bindings, Builds, Containers | Yes |
-| `cloudflare-observability` | Observability, Logs, GraphQL | Yes |
-| `cloudflare-security` | Radar, CASB, Audit Logs | Yes |
-| `cloudflare-ai` | AI Gateway, AutoRAG, Browser | Yes |
-| `cloudflare-network` | DNS Analytics, DEX | Yes |
+| Plugin | Use Case | MCP Servers | Auth |
+|--------|----------|-------------|------|
+| `cloudflare-dev` | Workers/Pages development | bindings, builds, observability, containers | Yes |
+| `cloudflare-docs` | Learning & reference | docs | **No** |
+| `cloudflare-security` | Security operations | radar, casb, auditlogs | Yes |
+| `cloudflare-ai` | AI/ML development | ai-gateway, autorag, browser | Yes |
+| `cloudflare-analytics` | Deep analytics | graphql, dns-analytics, dex, logs | Yes |
+| `cloudflare` | Everything | All 15 servers | Yes |
 
-**Examples:**
+### What's in each plugin?
+
+**`cloudflare-dev`** - Most developers start here
+- **bindings**: KV, R2, D1, Durable Objects, Queues, Hyperdrive
+- **builds**: Deploy and manage Workers/Pages
+- **observability**: Logs, errors, analytics
+- **containers**: Sandbox dev environments
+
+**`cloudflare-docs`** - No API token required
+- Search Cloudflare documentation with AI
+
+**`cloudflare-security`** - Security & compliance teams
+- **radar**: URL scanning, threat intelligence, traffic insights
+- **casb**: SaaS security misconfigurations
+- **auditlogs**: Compliance and audit trails
+
+**`cloudflare-ai`** - AI/ML workflows
+- **ai-gateway**: Monitor AI API usage and costs
+- **autorag**: Search documents in your RAG pipelines
+- **browser**: Screenshots, page rendering, web scraping
+
+**`cloudflare-analytics`** - Deep data analysis
+- **graphql**: Full Cloudflare GraphQL API access
+- **dns-analytics**: DNS query patterns and performance
+- **dex**: Digital Experience Monitoring
+- **logs**: Logpush job management
+
+## Authentication
+
 ```bash
-# Just documentation (no API token needed!)
-/plugin install cloudflare-docs@cloudflare-mcp
-
-# Workers development
-/plugin install cloudflare-workers@cloudflare-mcp
-
-# Multiple plugins
-/plugin install cloudflare-workers@cloudflare-mcp
-/plugin install cloudflare-observability@cloudflare-mcp
+export CLOUDFLARE_API_TOKEN="your-token"
 ```
 
-### Manual Configuration
+### Create an API Token
 
-Add directly to your project's `.claude/settings.json`:
+1. Go to **[Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)**
+2. Click **Create Token**
+3. Choose a template based on your workflow:
+
+| Workflow | Template | Additional Permissions |
+|----------|----------|----------------------|
+| `cloudflare-dev` | Edit Cloudflare Workers | Workers Tail (Read) |
+| `cloudflare-security` | Account Audit Logs (Read) | Radar (Read) |
+| `cloudflare-ai` | AI Gateway (Read) | - |
+| `cloudflare-analytics` | Account Analytics (Read) | Logs (Read) |
+
+### Full Access (all plugins)
+
+| Permission | Access |
+|------------|--------|
+| Account > Workers Scripts | Edit |
+| Account > Workers KV/R2/D1 | Edit |
+| Account > Workers Tail | Read |
+| Account > AI Gateway | Read |
+| Account > Logs | Edit |
+| Account > Audit Logs | Read |
+| Zone > DNS | Read |
+| Zone > Analytics | Read |
+
+## Skills
+
+Workflow helpers included with the full plugin:
+
+- `/cloudflare:setup` - Configure authentication
+- `/cloudflare:deploy-worker` - Deploy Workers
+- `/cloudflare:debug-worker` - Troubleshoot issues
+- `/cloudflare:analyze-traffic` - Radar analysis
+
+## Manual Configuration
+
+Add to `.claude/settings.json`:
 
 ```json
 {
@@ -56,171 +107,30 @@ Add directly to your project's `.claude/settings.json`:
     "cloudflare-mcp": {
       "source": {
         "source": "github",
-        "repo": "schmug/mcp-server-cloudflare"
+        "repo": "schmug/cloudflare-claude-plugin"
       }
     }
   },
   "enabledPlugins": {
-    "cloudflare-workers@cloudflare-mcp": true,
-    "cloudflare-docs@cloudflare-mcp": true
+    "cloudflare-dev@cloudflare-mcp": true
   }
 }
 ```
 
-### Authentication
-
-Set your Cloudflare API token as an environment variable:
-
-```bash
-export CLOUDFLARE_API_TOKEN="your-api-token"
-```
-
-#### Create an API Token with Full Access
-
-To use all MCP servers, create an API token with these permissions:
-
-**[Create API Token](https://dash.cloudflare.com/profile/api-tokens)** (click to open Cloudflare dashboard)
-
-| Permission | Access | Required For |
-|------------|--------|--------------|
-| **Account > Workers Scripts** | Edit | Bindings, Builds, Containers |
-| **Account > Workers KV Storage** | Edit | Bindings (KV) |
-| **Account > Workers R2 Storage** | Edit | Bindings (R2) |
-| **Account > D1** | Edit | Bindings (D1) |
-| **Account > AI Gateway** | Read | AI Gateway |
-| **Account > Workers Tail** | Read | Observability |
-| **Account > Account Analytics** | Read | Observability, GraphQL |
-| **Account > Logs** | Edit | Logpush |
-| **Account > Account Audit Logs** | Read | Audit Logs |
-| **Account > Access: Organizations, Identity Providers, and Groups** | Read | DEX, CASB |
-| **Zone > DNS** | Read | DNS Analytics |
-| **Zone > Analytics** | Read | GraphQL, DNS Analytics |
-| **User > User Details** | Read | All servers (account selection) |
-
-> **Tip:** Start with the "Edit Cloudflare Workers" template and add additional permissions as needed. For read-only access, change "Edit" to "Read" where applicable.
-
-#### Quick Setup (Minimal Permissions)
-
-For basic Workers development only:
-
-1. Go to [API Tokens](https://dash.cloudflare.com/profile/api-tokens)
-2. Click **Create Token**
-3. Use the **Edit Cloudflare Workers** template
-4. Add your account/zone resources
-5. Click **Continue to summary** → **Create Token**
-
-### Included MCP Servers
-
-The plugin configures all 15 Cloudflare MCP servers:
-
-| Server | Description |
-|--------|-------------|
-| `cloudflare-docs` | Search Cloudflare documentation (no auth required) |
-| `cloudflare-bindings` | Manage KV, R2, D1, Durable Objects, Queues, Hyperdrive |
-| `cloudflare-builds` | Workers build and deployment management |
-| `cloudflare-observability` | Query logs, analytics, and debugging info |
-| `cloudflare-radar` | Internet traffic insights and URL scanning |
-| `cloudflare-containers` | Sandbox development environments |
-| `cloudflare-browser` | Web page fetching and screenshots |
-| `cloudflare-logs` | Logpush job management |
-| `cloudflare-ai-gateway` | AI Gateway log search and analytics |
-| `cloudflare-autorag` | AutoRAG document search |
-| `cloudflare-auditlogs` | Audit log queries and reports |
-| `cloudflare-dns-analytics` | DNS performance optimization |
-| `cloudflare-dex` | Digital Experience Monitoring |
-| `cloudflare-casb` | SaaS security misconfigurations |
-| `cloudflare-graphql` | GraphQL API analytics |
-
-### Skills
-
-The plugin includes skills for common workflows:
-
-- `/cloudflare:setup` - Configure Cloudflare authentication
-- `/cloudflare:deploy-worker` - Deploy a Worker to production
-- `/cloudflare:debug-worker` - Troubleshoot Worker issues
-- `/cloudflare:analyze-traffic` - Analyze traffic with Radar
-
-### Upstream Repository
-
-This plugin wraps the official Cloudflare MCP servers. For:
-- **Source code and contributions**: See [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
-- **Bug reports for MCP servers**: File issues on the upstream repository
-- **Plugin-specific issues**: File issues on this fork
-
----
-
-These MCP servers allow your [MCP Client](https://modelcontextprotocol.io/clients) to read configurations from your account, process information, make suggestions based on data, and even make those suggested changes for you. All of these actions can happen across Cloudflare's many services including application development, security and performance.
-
-They support both the `streamble-http` transport via `/mcp` and the `sse` transport (deprecated) via `/sse`.
-
-The following servers are included in this repository:
-
-| Server Name                                                    | Description                                                                                     | Server URL                                     |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [**Documentation server**](/apps/docs-vectorize)               | Get up to date reference information on Cloudflare                                              | `https://docs.mcp.cloudflare.com/mcp`          |
-| [**Workers Bindings server**](/apps/workers-bindings)          | Build Workers applications with storage, AI, and compute primitives                             | `https://bindings.mcp.cloudflare.com/mcp`      |
-| [**Workers Builds server**](/apps/workers-builds)              | Get insights and manage your Cloudflare Workers Builds                                          | `https://builds.mcp.cloudflare.com/mcp`        |
-| [**Observability server**](/apps/workers-observability)        | Debug and get insight into your application's logs and analytics                                | `https://observability.mcp.cloudflare.com/mcp` |
-| [**Radar server**](/apps/radar)                                | Get global Internet traffic insights, trends, URL scans, and other utilities                    | `https://radar.mcp.cloudflare.com/mcp`         |
-| [**Container server**](/apps/sandbox-container)                | Spin up a sandbox development environment                                                       | `https://containers.mcp.cloudflare.com/mcp`    |
-| [**Browser rendering server**](/apps/browser-rendering)        | Fetch web pages, convert them to markdown and take screenshots                                  | `https://browser.mcp.cloudflare.com/mcp`       |
-| [**Logpush server**](/apps/logpush)                            | Get quick summaries for Logpush job health                                                      | `https://logs.mcp.cloudflare.com/mcp`          |
-| [**AI Gateway server**](/apps/ai-gateway)                      | Search your logs, get details about the prompts and responses                                   | `https://ai-gateway.mcp.cloudflare.com/mcp`    |
-| [**AutoRAG server**](/apps/autorag)                            | List and search documents on your AutoRAGs                                                      | `https://autorag.mcp.cloudflare.com/mcp`       |
-| [**Audit Logs server**](/apps/auditlogs)                       | Query audit logs and generate reports for review                                                | `https://auditlogs.mcp.cloudflare.com/mcp`     |
-| [**DNS Analytics server**](/apps/dns-analytics)                | Optimize DNS performance and debug issues based on current set up                               | `https://dns-analytics.mcp.cloudflare.com/mcp` |
-| [**Digital Experience Monitoring server**](/apps/dex-analysis) | Get quick insight on critical applications for your organization                                | `https://dex.mcp.cloudflare.com/mcp`           |
-| [**Cloudflare One CASB server**](/apps/cloudflare-one-casb)    | Quickly identify any security misconfigurations for SaaS applications to safeguard users & data | `https://casb.mcp.cloudflare.com/mcp`          |
-| [**GraphQL server**](/apps/graphql/)                           | Get analytics data using Cloudflare’s GraphQL API                                               | `https://graphql.mcp.cloudflare.com/mcp`       |
-
-## Access the remote MCP server from any MCP client
-
-If your MCP client has first class support for remote MCP servers, the client will provide a way to accept the server URL directly within its interface (e.g. [Cloudflare AI Playground](https://playground.ai.cloudflare.com/))
-
-If your client does not yet support remote MCP servers, you will need to set up its respective configuration file using mcp-remote (https://www.npmjs.com/package/mcp-remote) to specify which servers your client can access.
-
-```json
-{
-	"mcpServers": {
-		"cloudflare-observability": {
-			"command": "npx",
-			"args": ["mcp-remote", "https://observability.mcp.cloudflare.com/mcp"]
-		},
-		"cloudflare-bindings": {
-			"command": "npx",
-			"args": ["mcp-remote", "https://bindings.mcp.cloudflare.com/mcp"]
-		}
-	}
-}
-```
-
-## Using Cloudflare's MCP servers from the OpenAI Responses API
-
-To use one of Cloudflare's MCP servers with [OpenAI's responses API](https://openai.com/index/new-tools-and-features-in-the-responses-api/), you will need to provide the Responses API with an API token that has the scopes (permissions) required for that particular MCP server.
-
-For example, to use the [Browser Rendering MCP server](https://github.com/cloudflare/mcp-server-cloudflare/tree/main/apps/browser-rendering) with OpenAI, create an API token in the Cloudflare dashboard [here](https://dash.cloudflare.com/profile/api-tokens), with the following permissions:
-
-<img width="937" alt="Screenshot 2025-05-21 at 10 38 02 AM" src="https://github.com/user-attachments/assets/872e253f-23ce-43b3-983c-45f9d0f66100" />
-
-## Need access to more Cloudflare tools?
-
-We're continuing to add more functionality to this remote MCP server repo. If you'd like to leave feedback, file a bug or provide a feature request, [please open an issue](https://github.com/cloudflare/mcp-server-cloudflare/issues/new/choose) on this repository
-
 ## Troubleshooting
 
-"Claude's response was interrupted ... "
+**High context usage?** Install only the workflow plugin you need instead of `cloudflare` (all).
 
-If you see this message, Claude likely hit its context-length limit and stopped mid-reply. This happens most often on servers that trigger many chained tool calls such as the observability server.
+**"Response interrupted"?** Be more specific in queries, or break into smaller steps.
 
-To reduce the chance of running in to this issue:
+**Auth errors?** Check `CLOUDFLARE_API_TOKEN` is set and has required permissions.
 
-- Try to be specific, keep your queries concise.
-- If a single request calls multiple tools, try to to break it into several smaller tool calls to keep the responses short.
+## Links
 
-## Paid Features
+- [Upstream MCP Servers](https://github.com/cloudflare/mcp-server-cloudflare)
+- [Claude Code Plugins](https://code.claude.com/docs/en/plugins)
+- [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
 
-Some features may require a paid Cloudflare Workers plan. Ensure your Cloudflare account has the necessary subscription level for the features you intend to use.
+## License
 
-## Contributing
-
-Interested in contributing, and running this server locally? See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+Apache-2.0
